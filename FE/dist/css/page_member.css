@@ -1,0 +1,90 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.container {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 1%;
+}
+
+table {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
+}
+
+.vip {
+  background-color: yellow;
+}
+
+.normal {
+  background-color: pink;
+}
+
+.vip-choosed {
+  background-color: greenyellow;
+}
+
+.normal-choosed {
+  background-color: #e27a4e;
+}
+
+.bought {
+  background-color: red;
+}
+
+.information {
+  background-color: #9dc0ec;
+  margin-right: 1%;
+}
+
+.choose-date {
+  background-color: #9dc0ec;
+  margin-bottom: 1%;
+}
+
+.book-ticket-film {
+  height: 800px;
+}
+
+.choose-film {
+  background-color: #9dc0ec;
+  margin-right: 1%;
+  height: 800px;
+}
+
+.choose-chair {
+  background-color: #9dc0ec;
+  height: 800px;
+}
+
+.fix-margin {
+  background-color: #9dc0ec;
+}
+
+.select-film {
+  width: 98%;
+  border-radius: 0.25rem;
+}
+
+h3 {
+  text-align: center;
+  color: red;
+}
+
+.Manchieu {
+  border: 2px solid black;
+  margin-top: 1%;
+}
+
+input {
+  border-radius: 0.25rem;
+}
+/*# sourceMappingURL=page_member.css.map */
