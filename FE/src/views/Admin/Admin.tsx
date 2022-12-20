@@ -16,6 +16,7 @@ import { LoadingButton } from '@mui/lab'
 import BuildIcon from '@mui/icons-material/Build'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
+import toast, { Toaster } from 'react-hot-toast';
 import {
   Autocomplete,
   Stack,
@@ -258,14 +259,19 @@ export default function Admin() {
   const handleDrawerClose = () => {
     setOpen(false)
   }
+
+  const notify = (message: string) => toast.success(message);
+
+  //submit funtion customer
   async function handleSubmitKH(value: any) {
     const action = value.action
     setErrorKH("")
     if (action === "change") {
-      await axios.put('/update-customer', value).catch(function (error) {
+      await axios.put('/update-customer', value).then(function (res) {
+        const message = (Object.values(res.data.message)[0]) as string
+        notify(message)
+      }).catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           setErrorKH(error.response.data.message.message);
         } else if (error.request) {
           setErrorKH(error.request);
@@ -274,10 +280,11 @@ export default function Admin() {
         }
       });
     } else if (action === "add") {
-      await axios.post('/create-customer', value).catch(function (error) {
+      await axios.post('/create-customer', value).then(function (res) {
+        const message = (Object.values(res.data.message)[0]) as string
+        notify(message)
+      }).catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           setErrorKH(error.response.data.message.message);
         } else if (error.request) {
           setErrorKH(error.request);
@@ -286,10 +293,10 @@ export default function Admin() {
         }
       });
     } else if (action === "delete") {
-      await axios.delete('/delete-customer?id=' + value.MAKH).catch(function (error) {
+      await axios.delete('/delete-customer?id=' + value.MAKH).then(function (res) {
+        console.log(res)
+      }).catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           setErrorKH(error.response.data.message.message);
         } else if (error.request) {
           setErrorKH(error.request);
@@ -305,11 +312,11 @@ export default function Admin() {
     setErrorNV('')
     const { action, MANV } = value
     if (action === 'add') {
-
-      await axios.post('/create-staff', value).catch(function (error) {
+      await axios.post('/create-staff', value).then(function (res) {
+        const message = (Object.values(res.data.message)[0]) as string
+        notify(message)
+      }).catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           setErrorNV(error.response.data.message.message);
         } else if (error.request) {
           setErrorNV(error.request);
@@ -322,8 +329,6 @@ export default function Admin() {
 
       await axios.delete('/delete-staff?id=' + MANV).catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           setErrorNV(error.response.data.message.message);
         } else if (error.request) {
           setErrorNV(error.request);
@@ -334,10 +339,11 @@ export default function Admin() {
 
     } else if (action === 'change') {
 
-      await axios.put('/update-staff', value).catch(function (error) {
+      await axios.put('/update-staff', value).then(function (res) {
+        const message = (Object.values(res.data.message)[0]) as string
+        notify(message)
+      }).catch(function (error) {
         if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
           setErrorNV(error.response.data.message.message);
         } else if (error.request) {
           setErrorNV(error.request);
@@ -353,36 +359,52 @@ export default function Admin() {
     setErrorMatches('')
     const { action, MATB } = value
     if (action === 'add') {
-      try {
-        const res = await axios.post('/create-match', value)
-        console.log(res)
-      } catch (error) {
-        setErrorMatches(error.message)
-      }
+      await axios.post('/create-match', value).then(function (res) {
+        const message = (Object.values(res.data.message)[0]) as string
+        notify(message)
+      }).catch(function (error) {
+        if (error.response) {
+          setErrorMatches(error.response.data.message.message);
+        } else if (error.request) {
+          setErrorMatches(error.request);
+        } else {
+          console.log('Error', error.message);
+        }
+      });
     } else if (action === 'delete') {
-      try {
-        const res = await axios.delete('/delete-match?id=' + MATB)
-        console.log(res)
-      } catch (error) {
-        setErrorMatches(error.message)
-      }
+      await axios.delete('/delete-match?id=' + MATB).catch(function (error) {
+        if (error.response) {
+          setErrorMatches(error.response.data.message.message);
+        } else if (error.request) {
+          setErrorMatches(error.request);
+        } else {
+          console.log('Error', error.message);
+        }
+      });
     } else if (action === 'change') {
-      try {
-        const res = await axios.put('/update-match', value)
-        console.log(res)
-      } catch (error) {
-        setErrorMatches(error.message)
-      }
+      await axios.put('/update-match', value).then(function (res) {
+        const message = (Object.values(res.data.message)[0]) as string
+        notify(message)
+      }).catch(function (error) {
+        if (error.response) {
+          setErrorMatches(error.response.data.message.message);
+        } else if (error.request) {
+          setErrorMatches(error.request);
+        } else {
+          console.log('Error', error.message);
+        }
+      });
     }
     getMatchesData()
   }
 
   async function handleSubmitDV(params: any) {
     setErrorBuyTicket('')
-    await axios.post('/book-ticket', params).catch(function (error) {
+    await axios.post('/book-ticket', params).then(function (res) {
+      const message = (Object.values(res.data.message)[0]) as string
+      notify(message)
+    }).catch(function (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         setErrorBuyTicket(error.response.data.message.message);
       } else if (error.request) {
         setErrorBuyTicket(error.request);
@@ -395,6 +417,10 @@ export default function Admin() {
 
   return (
     <Box sx={{ display: 'flex' }}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <CssBaseline />
       <AppBar position='fixed' open={open}>
         <Toolbar>
@@ -501,7 +527,7 @@ export default function Admin() {
                         <Autocomplete
                           inputValue={formik.values.GIOITINH}
                           options={['Nam', 'Nữ']}
-                          sx={{ width: 300 }}
+                          fullWidth
                           onChange={(e, value) => {
                             const data = value
                             formik.setFieldValue('GIOITINH', value ? data : formik.values.GIOITINH)
@@ -512,15 +538,14 @@ export default function Admin() {
                         />
                         <MyTextField
                           name='LOAIKH'
+                          disabled
                           variant='outlined'
                           label='Loại'
                           placeholder='Loại khách hàng'
-                          InputProps={{
-                            readOnly: true,
-                          }}
                         />
                         <MyTextField
                           name='DIEMTICHLUY'
+                          disabled
                           variant='outlined'
                           label='Tích lũy'
                           placeholder='Điểm tích lũy'
@@ -677,7 +702,7 @@ export default function Admin() {
                         <Autocomplete
                           inputValue={formik.values.GIOITINH}
                           options={['Nam', 'Nữ']}
-                          sx={{ width: 300 }}
+                          fullWidth
                           onChange={(e, value) => {
                             const data = value
                             formik.setFieldValue('GIOITINH', value ? data : formik.values.GIOITINH)
