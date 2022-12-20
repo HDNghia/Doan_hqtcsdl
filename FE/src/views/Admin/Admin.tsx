@@ -1010,7 +1010,7 @@ export default function Admin() {
             onSubmit={handleSubmitDV}>
             {(formik) => {
               console.log(formik.errors)
-              formik.values.NGAYDAT = moment().format('DD-MM-YYYY')
+              formik.values.NGAYDAT = moment().format('YYYY-MM-DD')
               return (<Grid container spacing={3}>
                 <Grid item md={5} sx={{ p: 2 }}>
                   <Stack
